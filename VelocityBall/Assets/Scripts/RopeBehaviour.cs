@@ -4,28 +4,62 @@ using UnityEngine;
 
 public class RopeBehaviour : MonoBehaviour
 {
-    bool click = false;
-    // Start is called before the first frame update
+    public LayerMask ropeLayerMask;
+
+    public float distance = 90.0f;
+
+    LineRenderer line;
+    DistanceJoint2D rope;
+
+    Vector2 lookDirection;
+
+    bool checker = true;
+
     void Start()
     {
-        
+        rope = gameObject.AddComponent<DistanceJoint2D>();
+        line = GetComponent<LineRenderer>();
+
+        rope.enabled = false;
+        line.enabled = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        line.SetPosition(0, transform.position);
+
+        lookDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        Debug.DrawLine(transform.position, lookDirection);
+
+        if (Input.GetMouseButtonDown(0) && checker == true)
         {
-            
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, lookDirection, distance, ropeLayerMask);
+
+            if (hit.collider != null)
+            {
+                checker = false;
+                SetRope(hit);
+            }
         }
-        if (Input.GetMouseButton(0))
-            click = true;
-        else
-            click = false;
+        else if (Input.GetMouseButtonDown(0) && checker == false)
+        {
+            checker = true;
+            DestroyRope();
+        }
     }
 
-    void FindPositions()
+    void SetRope(RaycastHit2D hit)
     {
+        rope.enabled = true;
+        rope.connectedAnchor = hit.point;
 
+        line.enabled = true;
+        line.SetPosition(1, hit.point);
+    }
+
+    void DestroyRope()
+    {
+        rope.enabled = false;
+        line.enabled = false;
     }
 }
