@@ -17,7 +17,7 @@ public class RopeBehaviour : MonoBehaviour
 
     void Start()
     {
-        rope = gameObject.AddComponent<DistanceJoint2D>();
+        rope = GetComponent<DistanceJoint2D>();
         line = GetComponent<LineRenderer>();
 
         rope.enabled = false;
