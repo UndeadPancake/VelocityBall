@@ -6,7 +6,7 @@ public class RopeBehaviour : MonoBehaviour
 {
     public LayerMask ropeLayerMask;
 
-    public float distance = 90.0f;
+    public float distance = 10.0f;
 
     LineRenderer line;
     DistanceJoint2D rope;
@@ -29,7 +29,6 @@ public class RopeBehaviour : MonoBehaviour
         line.SetPosition(0, transform.position);
 
         lookDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        Debug.DrawLine(transform.position, lookDirection);
 
         if (Input.GetMouseButtonDown(0) && checker == true)
         {
