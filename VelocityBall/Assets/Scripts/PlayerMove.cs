@@ -26,6 +26,9 @@ public class PlayerMove : MonoBehaviour
             buttonpressed = left;
         else
             buttonpressed = null;
+
+        if (rigidbody.transform.position.y <= -100.0f)
+            Falling.ReloadScene();
     }
     private void FixedUpdate()
     {

@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class NextLevel : MonoBehaviour
 {
+    public string nextScene;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +19,6 @@ public class NextLevel : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        SceneManager.LoadScene("SecondScene");
+        SceneManager.LoadScene($"{nextScene}");
     }
 }
